@@ -1,0 +1,50 @@
+.card {
+  border: none;
+  border-radius: 12px;
+}
+
+.card-header {
+  background-color: #fff;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.btn-primary {
+  background-color: var(--primary-green);
+  border-color: var(--primary-green);
+}
+
+.btn-primary:hover {
+  background-color: var(--dark-green);
+  border-color: var(--dark-green);
+}
+
+.btn-success {
+  background-color: var(--soft-green);
+  border-color: var(--soft-green);
+  color: #1b5e20;
+}
+
+.card-accent {
+  border-left: 4px solid var(--primary-green);
+}
+
+.btn-green-close {
+  background-color: var(--soft-green);
+  border: none;
+  color: #1b5e20;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.2s ease;
+}
+
+.btn-green-close:hover {
+  background-color: var(--primary-green);
+  color: white;
+}

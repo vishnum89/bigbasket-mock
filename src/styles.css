@@ -1,1 +1,7 @@
+:root {
+  --primary-green: #4CAF50;      /* main brand */
+  --light-green: #E8F5E9;        /* soft background tint */
+  --soft-green: #A5D6A7;         /* hover / subtle accent */
+  --dark-green: #2E7D32;         /* strong buttons */
+}
 /* You can add global styles to this file, and also import other style files */
