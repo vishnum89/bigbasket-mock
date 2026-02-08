@@ -48,3 +48,76 @@
   background-color: var(--primary-green);
   color: white;
 }
+
+.col-12,
+.col-lg-8,
+.col-lg-4 {
+  transition: all 0.3s ease-in-out;
+}
+
+.col-lg-4 {
+  transition: all 0.3s ease-in-out;
+}
+
+.col-lg-4 .card {
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+/* Form input accent */
+.form-accent {
+  border-radius: 10px;
+  border: 1px solid #d4f1d4;
+  transition: all 0.3s ease;
+}
+
+.form-accent:focus {
+  border-color: #7cd67c;
+  box-shadow: 0 0 0 0.15rem rgba(124, 214, 124, 0.25);
+}
+
+/* Green button */
+.btn-green {
+  background-color: #a1e4a1;
+  border: none;
+  color: #1f3d1f;
+  font-weight: 600;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+}
+
+.btn-green:hover {
+  background-color: #8fdc8f;
+  transform: translateY(-1px);
+}
+
+.product-card {
+  border-radius: 14px;
+  border: 1px solid #e6f7e6;
+  transition: all 0.3s ease;
+}
+
+.product-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 18px rgba(124, 214, 124, 0.25);
+}
+
+.product-img {
+  height: 180px;
+  object-fit: cover;
+  border-top-left-radius: 14px;
+  border-top-right-radius: 14px;
+}
+
+/* Green outline button */
+.btn-outline-green {
+  border: 1px solid #a1e4a1;
+  color: #2f6f2f;
+  transition: all 0.3s ease;
+}
+
+.btn-outline-green:hover {
+  background-color: #a1e4a1;
+  color: #1f3d1f;
+}
+
+
