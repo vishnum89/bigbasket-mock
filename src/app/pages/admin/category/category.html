@@ -1,0 +1,138 @@
+<div class="container-fluid categories-page">
+
+  <div class="page-header">
+    <h3>Categories</h3>
+    <p class="text-muted">Manage product categories</p>
+  </div>
+
+  @if (categories$ | async; as categories) {
+
+    @if (!categories || categories.length === 0) {
+      <div class="empty-state">
+        No categories available.
+      </div>
+    }
+    @else {
+      <div class="row g-4">
+
+        @for (cat of categories; track cat.categoryId) {
+
+          <div class="col-md-6 col-lg-4 col-xl-3">
+            <div class="category-card">
+
+              <div class="category-header">
+                <div class="category-icon">
+                  {{ cat.categoryName }}
+                </div>
+
+                <div class="category-info">
+                  <h6>{{ cat.categoryName }}</h6>
+                  <small class="text-muted">
+                    ID: {{ cat.categoryId }}
+                  </small>
+                </div>
+              </div>
+
+              <div class="category-footer">
+                @if (cat.parentCategoryId === 0) {
+                  <span class="badge bg-success">Main Category</span>
+                }
+                @else {
+                  <span class="badge bg-secondary">
+                    Child of {{ cat.parentCategoryId }}
+                  </span>
+                }
+              </div>
+
+            </div>
+          </div>
+
+        }
+
+      </div>
+    }
+
+  }
+  @else {
+    <!-- LOADER -->
+    @if (isLoadingCategories) {
+      <div class="text-center py-5">
+        <div class="spinner-border text-success"></div>
+        <p class="mt-2 text-muted">Loading categories...</p>
+      </div>
+    }
+  }
+
+  <!-- LOADER -->
+  @if (isLoadingCategories) {
+    <div class="text-center py-5">
+      <div class="spinner-border text-success"></div>
+      <p class="mt-2 text-muted">Loading categories...</p>
+    </div>
+  }
+
+  <!-- CONTENT -->
+  <!-- @else {
+
+    @if (!categories || categories.length === 0) {
+      <div class="empty-state">
+        No categories available.
+      </div>
+    }
+
+    @else {
+      <div class="row g-4">
+
+        @for (cat of categories; track cat.categoryId) {
+
+          <div class="col-md-6 col-lg-4 col-xl-3">
+            <div class="category-card">
+
+              <div class="category-header">
+                <div class="category-icon">
+                  {{ cat.categoryName }}
+                </div>
+
+                <div class="category-info">
+                  <h6>{{ cat.categoryName }}</h6>
+                  <small class="text-muted">
+                    ID: {{ cat.categoryId }}
+                  </small>
+                </div>
+              </div>
+
+              <div class="category-footer">
+                @if (cat.parentCategoryId === 0) {
+                  <span class="badge bg-success">Main Category</span>
+                }
+                @else {
+                  <span class="badge bg-secondary">
+                    Child of {{ cat.parentCategoryId }}
+                  </span>
+                }
+              </div>
+
+            </div>
+          </div>
+
+        }
+
+      </div>
+    }
+
+  } -->
+
+  <!-- @if (categories$ | async; as categories) {
+
+    <p>Count: {{ categories.length }}</p>
+
+    @for (cat of categories; track cat.categoryId) {
+      {{ cat.categoryName }}
+    }
+
+  } @else {
+    <p>Loading...</p>
+  }
+   -->
+
+</div>

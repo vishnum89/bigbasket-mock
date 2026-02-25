@@ -1,9 +1,9 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Product } from '../../../models/product';
 import { Productsclient } from '../../../services/productsclient';
-import { Category } from '../../../models/category';
+import { CategoryModel } from '../../../models/category';
 
 @Component({
   selector: 'app-products',
@@ -14,23 +14,14 @@ import { Category } from '../../../models/category';
 export class Products {
     isSidePanelVisible: boolean = false;
     productForm! : FormGroup;
-    products : Product[];
-    categories : Category[] = [];
+    products : Product[] = [];
+    categories : CategoryModel[] = [];
+    isLoadingProducts: boolean = false;
 
-    constructor(private fb:FormBuilder , private productsClient : Productsclient){
-      this.products = [{
-        productId: 1,
-        productSku: 'SKU-001',
-        productName: 'Green Tea Pack',
-        productPrice: 299,
-        productShortName: 'Tea',
-        productDescription: 'Premium organic green tea.',
-        createdDate: new Date().toISOString(),
-        deliveryTimeSpan: '2 days',
-        categoryId: 1,
-        productImageUrl: 'https://via.placeholder.com/300x200',
-        userId: 1
-      }]
+
+    constructor(private fb:FormBuilder , 
+      private productsClient : Productsclient,
+      private cdr: ChangeDetectorRef){
     }
 
     ngOnInit(){
@@ -40,10 +31,12 @@ export class Products {
           productShortName: [''],
           productPrice: [0, [Validators.required, Validators.min(1)]],
           categoryId: [null, Validators.required],
+          deliveryTimeSpan: [''],
           productImageUrl: [''],
           productDescription: ['']
       });
       this.getAllCategory();
+      this.getAllProducts();
     }
 
 
@@ -53,7 +46,30 @@ export class Products {
             this.categories = res.data
            }
       })
+
+      //this.productsClient.getAllCategory()
     }
+
+    getAllProducts() {
+      this.isLoadingProducts = true;
+    
+      this.productsClient.getAllProducts().subscribe({
+        next: (res) => {
+
+          console.log("FULL RESPONSE:", res);
+          this.products = res?.result && res?.data ? res.data : [];
+          this.isLoadingProducts = false;
+          this.cdr.detectChanges();
+        },
+        error: (err) => {
+          console.error(err);
+          this.products = [];
+          this.isLoadingProducts = false;
+          this.cdr.detectChanges();
+        }
+      });
+    }
+    
 
     viewSidePanel(){
       this.isSidePanelVisible = true;
@@ -76,5 +92,26 @@ export class Products {
       console.log(product);
     }
 
+    saveProduct(){
+      if (this.productForm.invalid) {
+        this.productForm.markAllAsTouched();
+        return;
+      }
+     
+      const productData = this.productForm.value;
+
+      this.productsClient.saveProduct(productData).subscribe({
+        next : (res)=>{
+          console.log('Saved successfully', res);
+          this.productForm.reset();
+          this.getAllProducts(); // optional refresh
+        },
+        error: (err) => {
+          console.error('Error saving product', err);
+        }
+      }
+      )
+
+    }
 
 }
